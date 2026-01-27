@@ -16,10 +16,14 @@ const ProductCard = ({ product }) => {
     <div className="product-card">
       <div className="product-image">
         <img 
-          src={product.image_url || '/placeholder-product.jpg'} 
+          src={product.image_url && product.image_url.trim() !== ""
+            ? product.image_url
+            : "/placeholder-product.jpg"
+          }
           alt={product.name}
           onError={(e) => {
-            e.target.src = '/placeholder-product.jpg';
+            e.target.onerror = null; // 🚨 VERY IMPORTANT
+            e.target.src = "/placeholder-product.jpg";
           }}
         />
         {product.stock_quantity === 0 && (
