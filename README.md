@@ -54,7 +54,7 @@ Salon-Bliss/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/Salon-Bliss.git
+   git clone https://github.com/boity0/Salon-Bliss.git
    cd Salon-Bliss
    ```
 
