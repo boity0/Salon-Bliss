@@ -1,12 +1,15 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// For now, use a placeholder URL since backend isn't deployed yet
+// This will be updated once the backend is deployed to Railway
+const API_URL = process.env.REACT_APP_API_URL || 'https://placeholder-api.com/api';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
+  timeout: 10000, // 10 second timeout
 });
 
 // Request interceptor to add token
@@ -23,13 +26,16 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle 401 errors
+// Response interceptor to handle 401 errors and network issues
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('authToken');
-      window.location.href = '/login';
+      // Don't redirect in production until backend is ready
+      if (process.env.NODE_ENV === 'development') {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }

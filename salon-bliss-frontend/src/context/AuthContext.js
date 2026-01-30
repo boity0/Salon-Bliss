@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../services/axiosConfig';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext({});
@@ -18,17 +18,15 @@ export const AuthProvider = ({ children }) => {
     try {
       const storedToken = localStorage.getItem('authToken');
       if (storedToken) {
-        const response = await axios.get('http://localhost:5000/api/auth/me', {
-          headers: {
-            Authorization: `Bearer ${storedToken}`
-          }
-        });
+        const response = await axiosInstance.get('/auth/me');
         if (response.data.user) {
           setUser(response.data.user);
         }
       }
     } catch (error) {
-      console.error('Auth check failed:', error);
+      // Silently handle auth check failures in production
+      // This allows the app to load even without backend
+      console.log('Auth check skipped - backend not available');
       localStorage.removeItem('authToken');
     } finally {
       setLoading(false);
@@ -37,7 +35,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axiosInstance.post('/auth/login', {
         email,
         password
       });
@@ -57,7 +55,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', userData);
+      const response = await axiosInstance.post('/auth/register', userData);
       
       if (response.data.token) {
         localStorage.setItem('authToken', response.data.token);
@@ -74,7 +72,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/logout');
+      await axiosInstance.post('/auth/logout');
       localStorage.removeItem('authToken');
       setUser(null);
       toast.success('Logged out successfully');
