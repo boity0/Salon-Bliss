@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "salon-bliss",
+  "builds": [
+    {
+      "src": "salon-bliss-frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "salon-bliss-frontend/$1"
+    }
+  ],
+  "buildCommand": "cd salon-bliss-frontend && npm run build",
+  "outputDirectory": "salon-bliss-frontend/build",
+  "installCommand": "cd salon-bliss-frontend && npm install"
+}
