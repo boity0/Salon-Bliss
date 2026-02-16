@@ -27,9 +27,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/Salon-Bliss.git"
-  },
-  "workspaces": [
-    "salon-bliss-frontend",
-    "salon-bliss-backend"
-  ]
+  }
 }

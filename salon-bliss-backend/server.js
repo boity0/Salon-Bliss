@@ -15,7 +15,8 @@ connectDB();
 const allowedOrigins = [
   'http://localhost:3000',
   process.env.CORS_ORIGIN,
-  'https://your-salon-website.vercel.app' // Replace with your actual Vercel URL
+  'https://your-netlify-site.netlify.app', // Replace with your actual Netlify URL
+  'https://your-salon-website.vercel.app' // Replace with your actual Vercel URL if using both
 ].filter(Boolean);
 
 app.use(cors({

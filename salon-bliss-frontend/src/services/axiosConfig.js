@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-// For now, use a placeholder URL since backend isn't deployed yet
-// This will be updated once the backend is deployed to Railway
-const API_URL = process.env.REACT_APP_API_URL || 'https://placeholder-api.com/api';
+// Backend API URL - Update this with your Railway backend URL
+const API_URL = process.env.REACT_APP_API_URL || 'https://your-railway-backend-url.railway.app/api';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -32,10 +31,8 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('authToken');
-      // Don't redirect in production until backend is ready
-      if (process.env.NODE_ENV === 'development') {
-        window.location.href = '/login';
-      }
+      // Redirect to login on auth failure
+      window.location.href = '/login';
     }
     return Promise.reject(error);
   }
