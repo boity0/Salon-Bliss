@@ -15,7 +15,7 @@ connectDB();
 const allowedOrigins = [
   'http://localhost:3000',
   'https://salon-bliss-project.netlify.app',
-  'https://salon-bliss-production.up.railway.app',
+  'https://salon-bliss-backend.onrender.com',
   process.env.CORS_ORIGIN,
 ].filter(Boolean);
 
