@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Backend API URL - Update this with your Railway backend URL
-const API_URL = process.env.REACT_APP_API_URL || 'https://your-railway-backend-url.railway.app/api';
+// Backend API URL - Connected to Railway backend
+const API_URL = process.env.REACT_APP_API_URL || 'https://salon-bliss-production.up.railway.app/api';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
