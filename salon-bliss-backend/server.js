@@ -70,7 +70,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal server error', error: err.message });
 });
 
-app.listen(PORT, () => {
-  console.log(`Salon Bliss Backend running on http://localhost:${PORT}`);
-  console.log(`CORS enabled for http://localhost:3000`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Salon Bliss Backend running on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`CORS enabled for: ${allowedOrigins.join(', ')}`);
 });
