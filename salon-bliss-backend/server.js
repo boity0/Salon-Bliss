@@ -39,9 +39,24 @@ app.use('/api/staff', require('./routes/staff'));
 app.use('/api/time-slots', require('./routes/time-slots'));
 app.use('/api/dashboard', protect, authorize('admin', 'staff'), require('./routes/dashboard'));
 
-// Health check endpoint
+// Health check endpoints
 app.get('/health', (req, res) => {
   res.json({ status: 'Server is running', timestamp: new Date() });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'API is running', timestamp: new Date() });
+});
+
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Salon Bliss API', 
+    status: 'online',
+    endpoints: {
+      health: '/health',
+      api: '/api'
+    }
+  });
 });
 
 // 404 handler
