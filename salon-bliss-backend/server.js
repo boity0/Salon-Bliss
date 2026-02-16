@@ -14,9 +14,9 @@ connectDB();
 // Middleware
 const allowedOrigins = [
   'http://localhost:3000',
+  'https://salon-bliss-project.netlify.app',
+  'https://salon-bliss-production.up.railway.app',
   process.env.CORS_ORIGIN,
-  'https://salon-bliss-production.up.railway.app', // Railway backend itself
-  // Add your Netlify URL here once you have it
 ].filter(Boolean);
 
 app.use(cors({
